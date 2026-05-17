@@ -3,22 +3,21 @@ from pathlib import Path
 import re
 import sys
 
-ROOT = Path(__file__).resolve().parent
-REPO_ROOT = ROOT.parent
-PUBLIC_SKILLS = [
-    ROOT / "celpip-writing-coach" / "SKILL.md",
-    ROOT / "ielts-writing-coach" / "SKILL.md",
+SCRIPT_ROOT = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_ROOT.parent
+SKILLS_ROOT = REPO_ROOT / "skills"
+SKILLS = [
+    SKILLS_ROOT / "celpip-writing-coach" / "SKILL.md",
+    SKILLS_ROOT / "ielts-writing-coach" / "SKILL.md",
 ]
-MIRROR_ROOT = REPO_ROOT / "skills"
-MIRROR_SKILLS = [
-    MIRROR_ROOT / "celpip-writing-coach" / "SKILL.md",
-    MIRROR_ROOT / "ielts-writing-coach" / "SKILL.md",
-]
-README = ROOT / "README.md"
 ROOT_README = REPO_ROOT / "README.md"
-VALIDATION = ROOT / "VALIDATION.md"
-OFFICIAL_CASES = ROOT / "OFFICIAL_SAMPLE_CASES.md"
-MIRROR_OFFICIAL_CASES = MIRROR_ROOT / "OFFICIAL_SAMPLE_CASES.md"
+DOCS_ROOT = REPO_ROOT / "docs"
+VALIDATION = DOCS_ROOT / "VALIDATION.md"
+OFFICIAL_CASES = DOCS_ROOT / "OFFICIAL_SAMPLE_CASES.md"
+SKILL_REFERENCE_CASES = [
+    SKILLS_ROOT / "celpip-writing-coach" / "references" / "OFFICIAL_SAMPLE_CASES.md",
+    SKILLS_ROOT / "ielts-writing-coach" / "references" / "OFFICIAL_SAMPLE_CASES.md",
+]
 
 FORBIDDEN = [
     "/Users/",
@@ -34,6 +33,7 @@ FORBIDDEN = [
     "hubeiqiao/celpip-ielts-writing-coach",
     "hubeiqiao/ielts-celpip-writing-coach",
     "CELPIP vs IELTS: Core Differences",
+    "public-skills",
 ]
 
 README_REQUIRED = [
@@ -62,7 +62,7 @@ IELTS_REQUIRED = [
     "coaching estimate",
     "not official",
     "https://ielts.org/cdn/ielts-guides/ielts-writing-key-assessment-criteria.pdf",
-    "../OFFICIAL_SAMPLE_CASES.md",
+    "references/OFFICIAL_SAMPLE_CASES.md",
 ]
 
 CELPIP_REQUIRED = [
@@ -77,7 +77,7 @@ CELPIP_REQUIRED = [
     "coaching estimates",
     "not official",
     "answer key",
-    "../OFFICIAL_SAMPLE_CASES.md",
+    "references/OFFICIAL_SAMPLE_CASES.md",
 ]
 
 
@@ -113,13 +113,11 @@ def parse_frontmatter(text: str) -> dict[str, str]:
 
 def main() -> None:
     combined = ""
-    all_public_files = PUBLIC_SKILLS + MIRROR_SKILLS + [
+    all_public_files = SKILLS + [
         VALIDATION,
         OFFICIAL_CASES,
-        MIRROR_OFFICIAL_CASES,
-        README,
         ROOT_README,
-    ]
+    ] + SKILL_REFERENCE_CASES
     for path in all_public_files:
         if not path.exists():
             fail(f"missing file: {label(path)}")
@@ -143,45 +141,22 @@ def main() -> None:
         if stale in combined:
             fail(f"stale overclaim or vague wording found: {stale}")
 
-    for readme_path in [README, ROOT_README]:
-        readme_text = readme_path.read_text()
-        for term in README_REQUIRED:
-            if term not in readme_text:
-                fail(f"{label(readme_path)} missing public README term: {term}")
+    readme_text = ROOT_README.read_text()
+    for term in README_REQUIRED:
+        if term not in readme_text:
+            fail(f"{label(ROOT_README)} missing public README term: {term}")
 
-    mirror_pairs = [
-        (
-            ROOT / "celpip-writing-coach" / "SKILL.md",
-            MIRROR_ROOT / "celpip-writing-coach" / "SKILL.md",
-        ),
-        (
-            ROOT / "ielts-writing-coach" / "SKILL.md",
-            MIRROR_ROOT / "ielts-writing-coach" / "SKILL.md",
-        ),
-        (
-            ROOT / "celpip-writing-coach" / "agents" / "openai.yaml",
-            MIRROR_ROOT / "celpip-writing-coach" / "agents" / "openai.yaml",
-        ),
-        (
-            ROOT / "ielts-writing-coach" / "agents" / "openai.yaml",
-            MIRROR_ROOT / "ielts-writing-coach" / "agents" / "openai.yaml",
-        ),
-        (OFFICIAL_CASES, MIRROR_OFFICIAL_CASES),
-    ]
-    for source, mirror in mirror_pairs:
-        if not source.exists():
-            fail(f"missing source file: {label(source)}")
-        if not mirror.exists():
-            fail(f"missing mirror file: {label(mirror)}")
-        if source.read_text() != mirror.read_text():
-            fail(f"skills mirror is stale: {label(mirror)} differs from {label(source)}")
+    docs_cases_text = OFFICIAL_CASES.read_text()
+    for reference_path in SKILL_REFERENCE_CASES:
+        if reference_path.read_text() != docs_cases_text:
+            fail(f"skill reference is stale: {label(reference_path)} differs from {label(OFFICIAL_CASES)}")
 
-    ielts_text = (ROOT / "ielts-writing-coach" / "SKILL.md").read_text()
+    ielts_text = (SKILLS_ROOT / "ielts-writing-coach" / "SKILL.md").read_text()
     for term in IELTS_REQUIRED:
         if term not in ielts_text:
             fail(f"IELTS skill missing required term: {term}")
 
-    celpip_text = (ROOT / "celpip-writing-coach" / "SKILL.md").read_text()
+    celpip_text = (SKILLS_ROOT / "celpip-writing-coach" / "SKILL.md").read_text()
     for term in CELPIP_REQUIRED:
         if term not in celpip_text:
             fail(f"CELPIP skill missing required term: {term}")

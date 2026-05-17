@@ -6,8 +6,8 @@ Last updated: 2026-05-17
 
 This note records source checks and calibration smoke tests for two public-shareable skills:
 
-- `public-skills/celpip-writing-coach/SKILL.md`
-- `public-skills/ielts-writing-coach/SKILL.md`
+- `skills/celpip-writing-coach/SKILL.md`
+- `skills/ielts-writing-coach/SKILL.md`
 
 The public CELPIP skill is generalized from a project-specific coaching workflow. It intentionally removes private file paths, personal archive requirements, and project-only references.
 

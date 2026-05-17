@@ -147,7 +147,7 @@ Every drill must include answers. Prefer five-minute recall and repair drills ov
 
 ## Calibration With Official Samples
 
-For public official-score examples and case-study templates, use `../OFFICIAL_SAMPLE_CASES.md` when the user asks for validation examples or sample cases.
+For public official-score examples and case-study templates, use `references/OFFICIAL_SAMPLE_CASES.md` when the user asks for validation examples or sample cases.
 
 When using official sample responses with known bands:
 - Score the sample first without looking at the official comment if possible.

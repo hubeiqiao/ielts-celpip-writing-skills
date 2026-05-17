@@ -1,4 +1,0 @@
-interface:
-  display_name: "CELPIP Writing Coach"
-  short_description: "Rubric-based CELPIP Writing Task 1 and Task 2 coaching."
-  default_prompt: "Coach this CELPIP Writing draft with focused scoring, evidence, and reusable takeaways."

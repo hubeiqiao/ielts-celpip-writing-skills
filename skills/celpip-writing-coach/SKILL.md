@@ -116,7 +116,7 @@ Keep a core sheet tiny if the user asks for a review file. Put expandable langua
 
 ## Trust Checks
 
-For public official-score examples and case-study templates, use `../OFFICIAL_SAMPLE_CASES.md` when the user asks for validation examples or sample cases.
+For public official-score examples and case-study templates, use `references/OFFICIAL_SAMPLE_CASES.md` when the user asks for validation examples or sample cases.
 
 Before finalizing feedback, verify:
 - exact word count;

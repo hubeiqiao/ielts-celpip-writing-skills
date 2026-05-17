@@ -69,11 +69,9 @@ JoeSpeaking is the IELTS and CELPIP Speaking practice app I built for my own pre
 |---|---|
 | `skills/ielts-writing-coach/` | Standard skills.sh-compatible IELTS skill folder. |
 | `skills/celpip-writing-coach/` | Standard skills.sh-compatible CELPIP skill folder. |
-| `skills/OFFICIAL_SAMPLE_CASES.md` | Shared official public sample case templates for installed skills. |
-| `public-skills/` | Source export package with validation notes and checks. |
-| `public-skills/VALIDATION.md` | Source checks and calibration notes against public IELTS and CELPIP materials. |
-| `public-skills/OFFICIAL_SAMPLE_CASES.md` | Public official sample case-study templates and filled examples. |
-| `public-skills/validate_public_skills.py` | Deterministic public-readiness check. |
+| `docs/VALIDATION.md` | Source checks and calibration notes against public IELTS and CELPIP materials. |
+| `docs/OFFICIAL_SAMPLE_CASES.md` | Public official sample case-study templates and filled examples. |
+| `scripts/validate_public_skills.py` | Deterministic public-readiness check. |
 
 ## Skills.sh Discoverability
 
@@ -90,9 +88,7 @@ According to the skills.sh documentation, skills are installed from GitHub repos
 Run these checks before publishing changes:
 
 ```bash
-python3 public-skills/validate_public_skills.py
-python3 path/to/skill-creator/scripts/quick_validate.py public-skills/ielts-writing-coach
-python3 path/to/skill-creator/scripts/quick_validate.py public-skills/celpip-writing-coach
+python3 scripts/validate_public_skills.py
 python3 path/to/skill-creator/scripts/quick_validate.py skills/ielts-writing-coach
 python3 path/to/skill-creator/scripts/quick_validate.py skills/celpip-writing-coach
 ```
