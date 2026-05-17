@@ -1,0 +1,4 @@
+interface:
+  display_name: "IELTS Writing Coach"
+  short_description: "Official-criteria IELTS Writing Task 1 and Task 2 coaching."
+  default_prompt: "Coach this IELTS Writing draft with band breakdowns, evidence, and reusable drills."
