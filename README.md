@@ -2,6 +2,8 @@
 
 [![skills.sh](https://skills.sh/b/hubeiqiao/ielts-celpip-writing-skills)](https://skills.sh/hubeiqiao/ielts-celpip-writing-skills)
 
+![IELTS and CELPIP Writing Coach Skills social preview](assets/social-preview.png)
+
 This repository shares two reusable AI agent skills for exam writing practice:
 
 - `ielts-writing-coach`: for IELTS Academic Writing and IELTS General Training Writing.
@@ -72,6 +74,7 @@ JoeSpeaking is the IELTS and CELPIP Speaking practice app I built for my own pre
 | `docs/VALIDATION.md` | Source checks and calibration notes against public IELTS and CELPIP materials. |
 | `docs/OFFICIAL_SAMPLE_CASES.md` | Public official sample case-study templates and filled examples. |
 | `scripts/validate_public_skills.py` | Deterministic public-readiness check. |
+| `assets/social-preview.png` | 1280x640 repository social preview image. |
 
 ## Skills.sh Discoverability
 
